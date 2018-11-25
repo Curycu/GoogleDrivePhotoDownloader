@@ -23,17 +23,18 @@ def main():
     # next page token check: if page token is exists then start from that page
     next_page_token_sign = False
     next_page_token = ""
-    if exists(dirname("next_page_token.txt")):
+    if exists("next_page_token.txt"):
         next_page_token_sign = True
         with open("next_page_token.txt", "r") as f:
             next_page_token = f.read()
 
     # make directory to save downloaded images
-    if not exists(dirname("images")):
+    if not exists("images"):
         makedirs("images")
 
     while(True):
         if next_page_token_sign:
+            print("next_page_token:" + next_page_token)
             results = service.files().list(
                 pageToken=next_page_token,
                 q="mimeType contains 'image/'",
