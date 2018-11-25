@@ -38,7 +38,7 @@ def main():
             results = service.files().list(
                 pageToken=next_page_token,
                 q="mimeType contains 'image/'",
-                pageSize=1000,
+                pageSize=100,
                 orderBy="createdTime",
                 fields="nextPageToken, files(id, name, mimeType)").execute()
 
@@ -55,7 +55,7 @@ def main():
         else:
             results = service.files().list(
                 q="mimeType contains 'image/'",
-                pageSize=1000,
+                pageSize=100,
                 orderBy="createdTime",
                 fields="nextPageToken, files(id, name, mimeType)").execute()
 
