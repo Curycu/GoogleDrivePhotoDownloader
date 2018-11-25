@@ -30,7 +30,7 @@ def main():
 
     # make directory to save downloaded images
     if not exists(dirname("images")):
-        makedirs(dirname("images"))
+        makedirs("images")
 
     while(True):
         if next_page_token_sign:
