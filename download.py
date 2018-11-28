@@ -43,6 +43,7 @@ def main():
                 fields="nextPageToken, files(id, name, mimeType)").execute()
 
             next_page_token = results.get('nextPageToken')
+            save_token(next_page_token)
 
             items = results.get('files', [])
             if not items:
