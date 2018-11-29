@@ -43,15 +43,14 @@ def main():
                 fields="nextPageToken, files(id, name, mimeType)").execute()
 
             next_page_token = results.get('nextPageToken')
-
             items = results.get('files', [])
+
             if not items:
                 print('No files found.')
                 break
             else:
-                for item in items:
-                    print(u'{0}: {1} {2}'.format(item['id'], item['name'], item['mimeType']))
-                    save_file(service, item['id'], item['mimeType'].split("/")[1])
+                items_processing(items, service)
+
             save_token(next_page_token)
         else:
             results = service.files().list(
@@ -68,10 +67,15 @@ def main():
                 print('No files found.')
                 break
             else:
-                for item in items:
-                    print(u'{0}: {1} {2}'.format(item['id'], item['name'], item['mimeType']))
-                    save_file(service, item['id'], item['mimeType'].split("/")[1])
+                items_processing(items, service)
+
             save_token(next_page_token)
+
+
+def items_processing(items, service):
+    for item in items:
+        print(u'{0}: {1} {2}'.format(item['id'], item['name'], item['mimeType']))
+        save_file(service, item['id'], item['mimeType'].split("/")[1])
 
 
 def save_token(next_page_token):
