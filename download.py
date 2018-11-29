@@ -43,8 +43,8 @@ def main():
                 fields="nextPageToken, files(id, name, mimeType)").execute()
 
             next_page_token = results.get('nextPageToken')
+            
             items = results.get('files', [])
-
             if not items:
                 print('No files found.')
                 break
