@@ -43,7 +43,6 @@ def main():
                 fields="nextPageToken, files(id, name, mimeType)").execute()
 
             next_page_token = results.get('nextPageToken')
-            save_token(next_page_token)
 
             items = results.get('files', [])
             if not items:
@@ -53,6 +52,7 @@ def main():
                 for item in items:
                     print(u'{0}: {1} {2}'.format(item['id'], item['name'], item['mimeType']))
                     save_file(service, item['id'], item['mimeType'].split("/")[1])
+            save_token(next_page_token)
         else:
             results = service.files().list(
                 q="mimeType contains 'image/'",
@@ -62,7 +62,6 @@ def main():
 
             next_page_token = results.get('nextPageToken')
             next_page_token_sign = True
-            save_token(next_page_token)
 
             items = results.get('files', [])
             if not items:
@@ -72,6 +71,7 @@ def main():
                 for item in items:
                     print(u'{0}: {1} {2}'.format(item['id'], item['name'], item['mimeType']))
                     save_file(service, item['id'], item['mimeType'].split("/")[1])
+            save_token(next_page_token)
 
 
 def save_token(next_page_token):
